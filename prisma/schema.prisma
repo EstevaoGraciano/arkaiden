@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Player {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String
+  characters  Character[]
+}
+
+model Descendency {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String
+  characters  Character[]
+}
+
+model Magic {
+  id                  Int         @id @default(autoincrement())
+  name                String
+  description         String
+  characters          Character[] @relation("PrimaryMagic")
+  secondaryCharacters Character[] @relation("SecondaryMagic")
+}
+
+model Class {
+  id                  Int         @id @default(autoincrement())
+  name                String
+  description         String
+  characters          Character[] @relation("PrimaryClass")
+  secondaryCharacters Character[] @relation("SecondaryClass")
+}
+
+model DescendencyTrait {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String
+  characters  Character[]
+}
+
+model CharacterAttributes {
+  id                Int        @id @default(autoincrement())
+  character         Character?
+  healthMax         Int
+  healthCurrent     Int
+  deathTurns        Int
+  turnActions       Int
+  classPoints       Int
+  descendencyPoints Int
+  highGuard         Int
+  lowGuard          Int
+  defenseBonus      Int
+  dodgeBonus        Int
+  strength          Int
+  resistance        Int
+  agility           Int
+  intelligence      Int
+  knowledge         Int
+  confidence        Int
+}
+
+model Character {
+  id                    Int                 @id @default(autoincrement())
+  player                Player              @relation(fields: [playerId], references: [id])
+  playerId              Int                 @unique
+  name                  String
+  lastName              String?
+  descendency           Descendency         @relation(fields: [descendencyId], references: [id])
+  descendencyId         Int
+  symbol                Boolean
+  symbolLocation        String?
+  primaryMagic          Magic               @relation("PrimaryMagic", fields: [primaryMagicId], references: [id])
+  primaryMagicId        Int
+  secondaryMagic        Magic?              @relation("SecondaryMagic", fields: [secondaryMagicId], references: [id])
+  secondaryMagicId      Int?
+  class                 Class               @relation("PrimaryClass", fields: [classId], references: [id])
+  classId               Int
+  secondaryClass        Class?              @relation("SecondaryClass", fields: [secondaryClassId], references: [id])
+  secondaryClassId      Int?
+  descendencyTrait      DescendencyTrait    @relation(fields: [descendencyTraitId], references: [id])
+  descendencyTraitId    Int
+  characterAttributes   CharacterAttributes @relation(fields: [characterAttributesId], references: [id])
+  characterAttributesId Int                 @unique
+}
