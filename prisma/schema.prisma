@@ -38,6 +38,16 @@ model Class {
   description         String
   characters          Character[] @relation("PrimaryClass")
   secondaryCharacters Character[] @relation("SecondaryClass")
+  baseStr             Int
+  baseRes             Int
+  baseInt             Int
+  baseAgi             Int
+  baseKnw             Int
+  baseCon             Int
+  baseHealth          Int
+  baseGuard           Int
+  baseLowGuard        Int
+  baseDeathTurns      Int
 }
 
 model DescendencyTrait {

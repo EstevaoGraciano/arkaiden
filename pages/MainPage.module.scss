@@ -3,6 +3,8 @@
     height: 100vh;
     background-color: rgb(21, 4, 20);
     overflow-x: hidden;
+    
+    color: white;
 
     .body {
         width: min(100ch, 100% - 4rem);
@@ -11,7 +13,6 @@
 
         h1 {
             font-size: 60px;
-            color: white;
         }
     }
 }
