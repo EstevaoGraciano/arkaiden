@@ -10,7 +10,7 @@ const CreatePlayer = async (req: NextApiRequest, res: NextApiResponse) => {
                 const result = await prisma.player.create({ data: data })
                 res.status(200).json(result)
             } catch (e) {
-                res.status(500).json({ messate: e.message })
+                res.status(500).json({ message: e.message })
             } finally {
                 prisma.$disconnect();
             }

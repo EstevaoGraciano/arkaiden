@@ -2,12 +2,11 @@ import { PrismaClient } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 const prisma = new PrismaClient()
 
-const GetByIdDescendency = async (req: NextApiRequest, res: NextApiResponse) => {
-    const data = +req.query.id
+const GetAllClass = async (req: NextApiRequest, res: NextApiResponse) => {
     switch (req.method) {
         case "GET":
             try {
-                const result = await prisma.descendency.findFirst({where: {id : data}})
+                const result = await prisma.class.findMany()
                 res.status(200).json(result)
             } catch (e) {
                 res.status(500).json({ message: e.message })
@@ -21,4 +20,4 @@ const GetByIdDescendency = async (req: NextApiRequest, res: NextApiResponse) => 
     }
 }
 
-export default GetByIdDescendency;
+export default GetAllClass;

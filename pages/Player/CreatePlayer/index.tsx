@@ -10,6 +10,9 @@ import { IDescendency, createDescendencyStart } from '../../../src/store/Descend
 import { getAllDescendencyStart } from '../../../src/store/Descendency/GetAll/reducer';
 import { getByIdDescendencyStart } from '../../../src/store/Descendency/GetById/reducer';
 import { useForm } from 'antd/es/form/Form';
+import InputNumberForm from '../../../src/components/form/number';
+import { IClass, createClassStart } from '../../../src/store/Class/Create/reducer';
+import { getByIdClassStart } from '../../../src/store/Class/GetById/reducer';
 
 const CreatePlayerPage = () => {
     const dispatch = useDispatch();
@@ -47,6 +50,25 @@ const CreatePlayerPage = () => {
         dispatch(createDescendencyStart(form))
     }
 
+    const handleSubmitClasse = (values: IClass) => {
+        const form: IClass = {
+            id: values.id || 0,
+            name: values.name,
+            description: values.description,
+            baseAgi: values.baseAgi,
+            baseCon: values.baseCon,
+            baseDeathTurns: values.baseDeathTurns,
+            baseGuard: values.baseGuard,
+            baseHealth: values.baseHealth,
+            baseInt: values.baseInt,
+            baseKnw: values.baseKnw,
+            baseLowGuard: values.baseLowGuard,
+            baseRes: values.baseRes,
+            baseStr: values.baseStr,
+        };
+        dispatch(createClassStart(form));
+    }
+
     return (
         <div className={style['main']}>
             {/* <FormComponent
@@ -59,20 +81,49 @@ const CreatePlayerPage = () => {
 
             </FormComponent> */}
 
-            <div>Criar Descendência</div>
+            {/* <div>Criar Classe</div>
             <FormComponent
                 maxwidth={2000}
                 formReference={form}
                 onFinish={(values) => {handleSubmitDescendencia(values)}}
             >
+                <InputNumberForm label={'NUMERO'} name={'number'} />
                 <InputForm label={'Id'} name={'id'} />
                 <InputForm label={'Nome'} name={'name'} />
                 <InputForm label={'Descrição'} name={'description'} />
                 <Button htmlType='submit'>Enviar</Button>
                 <Button onClick={() => dispatch(getByIdDescendencyStart(+form.getFieldValue('id')))}>Get By Id</Button>
 
+            </FormComponent> */}
+
+            <div>Criar Classe</div>
+            <FormComponent
+                maxwidth={2000}
+                formReference={form}
+                onFinish={(values) => {handleSubmitClasse(values)}}
+            >
+                <InputForm label={'Id'} name={'id'} />
+                <InputForm label={'Nome'} name={'name'} />
+                <InputForm label={'Descrição'} name={'description'} />
+                <InputNumberForm label={'Strength'} name={'baseStr'} />
+                <InputNumberForm label={'Resistance'} name={'baseRes'} />
+                <InputNumberForm label={'Inteligence'} name={'baseInt'} />
+                <InputNumberForm label={'Agility'} name={'baseAgi'} />
+                <InputNumberForm label={'Knowledge'} name={'baseKnw'} />
+                <InputNumberForm label={'Confidence'} name={'baseCon'} />
+                <InputNumberForm label={'Health'} name={'baseHealth'} />
+                <InputNumberForm label={'Guard'} name={'baseGuard'} />
+                <InputNumberForm label={'Low Guard'} name={'baseLowGuard'} />
+                <InputNumberForm label={'Death Turns'} name={'baseDeathTurns'} />
+                <Button htmlType='submit'>Enviar</Button>
+                <Button onClick={() => dispatch(getByIdClassStart(+form.getFieldValue('id')))}>Get By Id</Button>
+
             </FormComponent>
-            <div style={{
+
+
+
+
+            {/* <div style={{
                         display: 'flex',
                         marginTop: 20
                     }}>
@@ -83,7 +134,7 @@ const CreatePlayerPage = () => {
                     </Card>
                 )
             })}
-            </div>
+            </div> */}
         </div>
     )
 }
