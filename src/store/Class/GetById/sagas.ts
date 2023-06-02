@@ -1,5 +1,5 @@
 import { call, put } from "redux-saga/effects";
-import ClassAPI from "../../../apiHandler/class/ClassAPI";
+import ClassAPI from "../../../ApiHandler/Class/ClassAPI";
 import { IClass } from "../Create/reducer";
 import { getByIdClassFailed, getByIdClassSuccess } from "./reducer";
 

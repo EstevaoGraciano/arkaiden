@@ -1,5 +1,5 @@
 import { call, put } from "redux-saga/effects";
-import PlayerAPI from "../../../apiHandler/player/PlayerAPI";
+import PlayerAPI from "../../../ApiHandler/Player/PlayerAPI";
 import { IPlayer, createPlayerFailed, createPlayerSuccess } from "./reducer";
 
 export function* fetchCreatePlayer(action){

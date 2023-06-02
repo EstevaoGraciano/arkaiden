@@ -2,22 +2,18 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../src/store";
 import { IPlayer, createPlayerStart } from "../../../src/store/Player/Create/reducer";
-import FormComponent from "../../../src/components/form";
-import InputForm from "../../../src/components/form/input";
+import FormComponent from "../../../Components/Form";
+import InputForm from "../../../Components/Form/Input";
 import { Button, Card, Form } from "antd";
 import style from './CreatePlayer.module.scss'
 import { IDescendency, createDescendencyStart } from '../../../src/store/Descendency/Create/reducer';
 import { getAllDescendencyStart } from '../../../src/store/Descendency/GetAll/reducer';
-import { getByIdDescendencyStart } from '../../../src/store/Descendency/GetById/reducer';
-import { useForm } from 'antd/es/form/Form';
-import InputNumberForm from '../../../src/components/form/number';
 import { IClass, createClassStart } from '../../../src/store/Class/Create/reducer';
-import { getByIdClassStart } from '../../../src/store/Class/GetById/reducer';
 import { getAllClassStart } from '../../../src/store/Class/GetAll/reducer';
-import SelectForm, { ISelectOption } from '../../../src/components/form/select';
-import { GetDescendencyTraitList } from '../../../src/enums/descendencyTraits';
-import CardAttForm from '../../../src/components/form/cardAtt';
-import CharacterPage from '../../character/[id]';
+import SelectForm, { ISelectOption } from '../../../Components/Form/Select';
+import { GetDescendencyTraitList } from '../../../src/Enums/descendencyTraits';
+import CardAttForm from '../../../Components/Form/CardAtt';
+import CharacterPage from '../../Character/[id]';
 
 const CreatePlayerPage = () => {
     const dispatch = useDispatch();

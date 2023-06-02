@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import Header from '../ui/header';
+import Header from '../UI/Header';
 import style from './RegularPage.module.scss';
 
 

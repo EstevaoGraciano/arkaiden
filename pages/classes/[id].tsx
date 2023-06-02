@@ -1,11 +1,9 @@
 import { useRouter } from 'next/router';
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getByIdClassStart } from '../../src/store/Class/GetById/reducer';
+import CardAtt from '../../Components/Sheet/CardAtt';
 import { RootState } from '../../src/store';
-import { Card, Select } from 'antd';
-import CardAtt from '../../src/components/sheet/CardAtt';
-import SelectForm from '../../src/components/form/select';
+import { getByIdClassStart } from '../../src/store/Class/GetById/reducer';
 
 
 export const ClassPage: FC = () => {

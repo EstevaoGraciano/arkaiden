@@ -1,6 +1,6 @@
 import { call, put } from "redux-saga/effects";
-import PlayerAPI from "../../../apiHandler/player/PlayerAPI";
-import DescendencyAPI from "../../../apiHandler/descendency/DescendencyAPI";
+import PlayerAPI from "../../../ApiHandler/Player/PlayerAPI";
+import DescendencyAPI from "../../../ApiHandler/Descendency/DescendencyAPI";
 import { IDescendency } from "../Create/reducer";
 import { getByIdDescendencyFailed, getByIdDescendencySuccess } from "./reducer";
 

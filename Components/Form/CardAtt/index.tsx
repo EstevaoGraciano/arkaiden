@@ -1,6 +1,6 @@
 import { Card, Form, Input } from "antd";
 import React, { FC } from "react";
-import InputForm from "../input";
+import InputForm from "../Input";
 
 type LayoutType = Parameters<typeof Form>[0]['layout']
 

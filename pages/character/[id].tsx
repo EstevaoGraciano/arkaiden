@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { IDescendency } from '../../src/store/Descendency/Create/reducer';
-import { DescendencyTrait } from '../../src/enums/descendencyTraits';
+import { DescendencyTrait } from '../../src/Enums/descendencyTraits';
 import { IClass } from '../../src/store/Class/Create/reducer';
-import CardAtt from '../../src/components/sheet/CardAtt';
+import CardAtt from '../../Components/Sheet/CardAtt';
 
 interface ICharacter {
     id?: number;

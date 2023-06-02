@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import './index.scss'
 import Providers from "../src/store/provider";
-import RegularPage from "../src/components/pageTemplate";
+import RegularPage from "../Components/PageTemplate";
 
 export const App = ({ Component, pageProps }) => {
     return (
