@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../src/store";
 import { IPlayer, createPlayerStart } from "../../../src/store/Player/Create/reducer";
@@ -13,15 +13,21 @@ import { useForm } from 'antd/es/form/Form';
 import InputNumberForm from '../../../src/components/form/number';
 import { IClass, createClassStart } from '../../../src/store/Class/Create/reducer';
 import { getByIdClassStart } from '../../../src/store/Class/GetById/reducer';
+import { getAllClassStart } from '../../../src/store/Class/GetAll/reducer';
+import SelectForm, { ISelectOption } from '../../../src/components/form/select';
+import { GetDescendencyTraitList } from '../../../src/enums/descendencyTraits';
+import CardAttForm from '../../../src/components/form/cardAtt';
+import CharacterPage from '../../character/[id]';
 
 const CreatePlayerPage = () => {
     const dispatch = useDispatch();
 
-    const { player, descendency, descendencyList } = useSelector((state: RootState) => {
+    const { player, descendency, descendencyList, classList } = useSelector((state: RootState) => {
         return {
             player: state.player.data,
             descendency: state.descendency.create,
-            descendencyList: state.descendency.getAll.data
+            descendencyList: state.descendency.getAll.data,
+            classList: state.classes.getAll.data
         }
     })
 
@@ -29,7 +35,39 @@ const CreatePlayerPage = () => {
 
     useEffect(() => {
         dispatch(getAllDescendencyStart());
-    }, [descendency.data])
+        dispatch(getAllClassStart())
+    }, [])
+
+    const classOptions = useMemo(() => {
+        var classes = [...classList];
+        var classOpts = classes.map((x): ISelectOption => ({
+            label: x.name,
+            value: x.id
+        }))
+        return classOpts
+    }, [classList])
+
+    const descendencyOptions = useMemo(() => {
+        var descendencies = [...descendencyList];
+        var descendencyOpts = descendencies.map((x): ISelectOption => ({
+            label: x.name,
+            value: x.id
+        }));
+        return descendencyOpts;
+    }, [descendencyList])
+
+    const handleClassDefaults = useCallback((selectedClass: IClass) => {
+        form.setFieldValue('baseStr', selectedClass.baseStr);
+        form.setFieldValue('baseAgi', selectedClass.baseAgi);
+        form.setFieldValue('baseRes', selectedClass.baseRes);
+        form.setFieldValue('baseInt', selectedClass.baseInt);
+        form.setFieldValue('baseKnw', selectedClass.baseKnw);
+        form.setFieldValue('baseCon', selectedClass.baseCon);
+        form.setFieldValue('baseHealth', selectedClass.baseHealth);
+        form.setFieldValue('baseGuard', selectedClass.baseGuard);
+        form.setFieldValue('baseLowGuard', selectedClass.baseLowGuard);
+        form.setFieldValue('baseDeathTurns', selectedClass.baseDeathTurns);
+    }, [form])
     
     const handleSubmitPlayer = (values: IPlayer) => {
         const form: IPlayer = {
@@ -71,6 +109,53 @@ const CreatePlayerPage = () => {
 
     return (
         <div className={style['main']}>
+            <div>Criar Personagem</div>
+            <FormComponent
+                maxwidth={2000}
+                formReference={form}
+                onFinish={(values) => {handleSubmitClasse(values)}}
+            >
+                <SelectForm label={'Class'} name={'class'} options={classOptions}
+                    onChange={(value: ISelectOption) => {
+                        var selectedClass = classList.find((x) => x.id === value.value)
+                        handleClassDefaults(selectedClass)
+                    }}
+                />
+                <SelectForm label={'Descendency'} name={'descendency'} options={descendencyOptions}/>
+                <SelectForm label={'Descendency Trait'} name={'descendencyTrait'} options={GetDescendencyTraitList()}/>
+                <InputForm label={'Name'} name={'name'} />
+                <InputForm label={'Last Name'} name={'lastName'} />
+
+                <div style={{ display: 'flex' }}>
+                    <CardAttForm label={'Strength'} name={'baseStr'} />
+                    <CardAttForm label={'Resistance'} name={'baseRes'} />
+                    <CardAttForm label={'Inteligence'} name={'baseInt'} />
+                    <CardAttForm label={'Agility'} name={'baseAgi'} />
+                    <CardAttForm label={'Knowledge'} name={'baseKnw'} />
+                    <CardAttForm label={'Confidence'} name={'baseCon'} />
+                </div>
+                <div style={{ display: 'flex' }}>
+                    <CardAttForm label={'Health'} name={'baseHealth'} />
+                    <CardAttForm label={'Guard'} name={'baseGuard'} />
+                    <CardAttForm label={'Low Guard'} name={'baseLowGuard'} />
+                    <CardAttForm label={'Death Turns'} name={'baseDeathTurns'} />
+                </div>
+
+                <Button htmlType='submit'>Enviar</Button>
+
+            </FormComponent>
+
+
+
+            <CharacterPage character={
+                {
+                    name: 'PRINGLES',
+                    lastName: 'the Guy',
+                    descendency: descendencyList[0],
+                    class: classList[0]
+                
+                }
+            }/>
             {/* <FormComponent
                 maxwidth={2000}
                 onFinish={(values) => {handleSubmitPlayer(values)}}
@@ -96,7 +181,7 @@ const CreatePlayerPage = () => {
 
             </FormComponent> */}
 
-            <div>Criar Classe</div>
+            {/* <div>Criar Classe</div>
             <FormComponent
                 maxwidth={2000}
                 formReference={form}
@@ -118,7 +203,7 @@ const CreatePlayerPage = () => {
                 <Button htmlType='submit'>Enviar</Button>
                 <Button onClick={() => dispatch(getByIdClassStart(+form.getFieldValue('id')))}>Get By Id</Button>
 
-            </FormComponent>
+            </FormComponent> */}
 
 
 

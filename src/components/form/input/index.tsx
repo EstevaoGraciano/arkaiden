@@ -7,15 +7,20 @@ type LayoutType = Parameters<typeof Form>[0]['layout']
 interface IInputForm {
     label: string,
     name: string,
+    customWidth?: number,
     formLayout?: LayoutType,
 
 }
 
-const InputForm: FC<IInputForm> = ({label, name}) => {
+const DEFAULT_WIDTH = 400;
+
+const InputForm: FC<IInputForm> = ({label, name, customWidth}) => {
     return (
-        <div className={style['main']}>
+        <div
+        style={{ width: customWidth || DEFAULT_WIDTH}}
+        >
             <Form.Item
-            label={`${label}:`}
+            label={label != '' ? `${label}:` : ''}
             name={name}
             >
                 <Input />

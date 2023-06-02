@@ -21,7 +21,7 @@ const GetAllClassReducer = createSlice({
     name: 'getAllClass',
     initialState: initialState,
     reducers: {
-        getAllClassStart: (state, action) => {
+        getAllClassStart: (state) => {
             state.isLoading = true;
         },
         getAllClassSuccess: (state, action) => {
